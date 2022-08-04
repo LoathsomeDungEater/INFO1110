@@ -1,2 +1,1 @@
-# INFO1110
-INFO1110 Stuff
+# Repo for INFO1110
