@@ -7,7 +7,7 @@ Unikey: hngu2146
 '''
 name = input("Please enter your name: ")
 #Continually prompts user when name is not valid or when user does not enter anything
-while name.isalpha() == False and not (' ' in name):
+while name.isalpha() == False and not(' ' in name) or name.isspace() == True:
     print("Error: Only accept alphabetical characters and spaces for name\n")
     name = input("Please enter your name: ")
     
