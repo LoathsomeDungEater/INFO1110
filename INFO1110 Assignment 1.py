@@ -7,44 +7,44 @@ Unikey: hngu2146
 '''
 name = input("Please enter your name: ")
 #Continually prompts user when name is not valid or when user does not enter anything
-while name.isalpha() == False:
+while name.isalpha() == False and not (' ' in name):
     print("Error: Only accept alphabetical characters and spaces for name\n")
-    name = input("\nPlease enter your name: ")
+    name = input("Please enter your name: ")
     
 #Takes age input from user as a string
 raw_age = input("\nPlease enter your age: ")
 #Continually prompts user when input is empty, when input is not a number or when age is out of the valid range
 while raw_age == "" or raw_age.isdigit() == False or not(0<= int(raw_age) <= 110):
-    print("Error: The age is a number between 0 to 110")
-    raw_age = input("\nPlease enter your age: ")
+    print("Error: The age is a number between 0 to 110\n")
+    raw_age = input("Please enter your age: ")
 #Typecasts age into int. This is to help in conditional statements for rep/min modifiers for elderly people
 age = int(raw_age)
 
 sex = input("\nPlease enter your biological sex (female/male): ")
 #Continually prompts user when input is empty or input is not exactly "male" or "female"
 while sex != "male" and sex != "female":
-    print("Error: Please enter valid input")
-    sex = input("\nPlease enter your biological sex (female/male): ")
+    print("Error: Please enter valid input\n")
+    sex = input("Please enter your biological sex (female/male): ")
 
 #No need to typecast to int, can still fulfill conditionals without being an integer
-training_choice = input("""\nWhat do you want to get out of your training?
-     1. Your goal is losing weight 
-     2. Your goal is to staying calm and relax
-     3. Your goal is increasing your heart rate
-     4. Your goal is having stronger legs
-     5. Your goal is having stronger ABS
-     6. Your goal is having stronger shoulders and arms
+training_choice = input("""\nWhat do you want to get out of your training? 
+    1. Your goal is losing weight
+    2. Your goal is to staying calm and relax
+    3. Your goal is increasing your heart rate
+    4. Your goal is having stronger legs
+    5. Your goal is having stronger ABS
+    6. Your goal is having stronger shoulders and arms
 Choose a number between 1 to 6: """)
 #Continually prompts user when input is empty or when input is not a number from 1 to 6
 while training_choice.isdigit() == False or not (1 <= int(training_choice) <= 6):
     print("Error - It can only be a number between 1 to 6")
-    training_choice = input("""\nWhat do you want to get out of your training?
-     1. Your goal is losing weight 
-     2. Your goal is to staying calm and relax
-     3. Your goal is increasing your heart rate
-     4. Your goal is having stronger legs
-     5. Your goal is having stronger ABS
-     6. Your goal is having stronger shoulders and arms
+    training_choice = input("""\nWhat do you want to get out of your training? 
+    1. Your goal is losing weight
+    2. Your goal is to staying calm and relax
+    3. Your goal is increasing your heart rate
+    4. Your goal is having stronger legs
+    5. Your goal is having stronger ABS
+    6. Your goal is having stronger shoulders and arms
 Choose a number between 1 to 6: """)
 
 #Takes days per week input as a string
@@ -52,7 +52,7 @@ raw_days_per_week = input("\nHow many days per week you can train: ")
 #Continually prompts user when input is empty or when input is not a number from 1 to 7
 while raw_days_per_week.isdigit() == False or not(1 <= int(raw_days_per_week) <= 7):
     print("Error: It can only be a number between 1 to 7")
-    raw_days_per_week = input("\nHow many days per week you can train: ")
+    raw_days_per_week = input("How many days per week you can train: ")
 #Typecasts days per week into an int for operations
 days_per_week = int(raw_days_per_week)
 
@@ -84,9 +84,9 @@ Box jumps ({math.ceil(10*modifier)} reps x 3 sets)
 Lunges ({math.ceil(10*modifier)} reps x 3 sets)
 Renegade rows ({math.ceil(10*modifier)} reps x 3 sets)
 Press ups ({math.ceil(15*modifier)} reps x 3 sets)
-Treadmill ({math.ceil(15*modifier)} mins x 2 sets)
-Supermans ({math.ceil(15*modifier)} reps x 3 sets)
-Crunches ({math.ceil(20*modifier)} reps x 3 sets)"""
+Treadmill ({math.ceil(10*modifier)} mins x 3 sets)
+Supermans ({math.ceil(10*modifier)} reps x 3 sets)
+Crunches ({math.ceil(10*modifier)} reps x 3 sets)"""
     return fat_loss_workout
 #2------------------------------------------------------
 def stretch_n_relax(modifier):
@@ -210,38 +210,54 @@ Dumbbell presses ({math.ceil(10*modifier)} reps x 4 sets)"""
 #Creates function that calls the workouts depending on the training choice from the user
 def user_workout_choice(training_choice = training_choice, modifier = modifier):
     if training_choice == "1":
-       return fat_loss(modifier)
+       print(fat_loss(modifier))
     elif training_choice == "2":
-       return stretch_n_relax(modifier)
+       print(stretch_n_relax(modifier))
     elif training_choice == "3":
-       return HIT(modifier)
+       print(HIT(modifier))
     elif training_choice == "4":
-       return legs(modifier)
+       print(legs(modifier))
     elif training_choice == "5":
-       return abdom(modifier)
+       print(abdom(modifier))
     elif training_choice == "6":
-       return shoulder_n_arms(modifier)
+       print(shoulder_n_arms(modifier))
 #Creates function that calls the workouts based on the sex and age of the user
 def age_sex_workout(sex = sex, age = age, modifier = modifier):
     if sex == "male":
         if age < 18:
-           return male_under_18(modifier)
+           print(male_under_18(modifier))
         else:
-           return male_18plus(modifier)
+           print(male_18plus(modifier))
     elif sex == "female":
         if age < 18:
-           return female_under_18(modifier)
+           print(female_under_18(modifier))
         else:
-           return female_18plus(modifier)
+           print(female_18plus(modifier))
 
 #WORK ON MAKING A FUNCTION/LOOP TO PRINT THE FINAL WORKOUT
-day_counter = 1
-print(f"\nHello {name}! Here is your training:")
-print("-------------------------------------------------------------------------------------")
-print(f"Day {day_counter}")
-print(user_workout_choice(training_choice))
-print("-------------------------------------------------------------------------------------")
-print(f"Day {day_counter + 1}")
-print(age_sex_workout(sex, age))
-print("-------------------------------------------------------------------------------------")
-print(f"\nBye {name}.")
+
+def final_workout(days = days_per_week):
+    day_counter = 1
+    if days == 1:
+        print(f"\nHello {name}! Here is your training:")
+        print("-------------------------------------------------------------------------------------")
+        print(f"Day {day_counter}")
+        user_workout_choice(training_choice)
+        print("-------------------------------------------------------------------------------------")
+        print(f"\nBye {name}.")
+    elif days > 1:
+        print(f"\nHello {name}! Here is your training:")
+        while day_counter < days:
+            print("-------------------------------------------------------------------------------------")
+            print(f"Day {day_counter}")
+            user_workout_choice(training_choice)
+            print("-------------------------------------------------------------------------------------")
+            day_counter += 1
+            print(f"Day {day_counter}")
+            age_sex_workout(sex, age)
+            day_counter += 1
+            
+        print("-------------------------------------------------------------------------------------")
+        print(f"\nBye {name}.")
+
+final_workout()
