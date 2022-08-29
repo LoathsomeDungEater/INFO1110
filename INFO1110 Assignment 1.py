@@ -44,6 +44,8 @@ while sex != "male" and sex != "female":
     sex = input("Please enter your biological sex (female/male): ")
 
 #No need to typecast to int, can still fulfill conditionals without being an integer
+#Used docstrings over escape characters for multi-line strings as it's easier to look at
+#and spot errors in spelling whitespace
 training_choice = input("""\nWhat do you want to get out of your training? 
     1. Your goal is losing weight
     2. Your goal is to staying calm and relax
@@ -70,11 +72,12 @@ raw_days_per_week = input("\nHow many days per week you can train: ")
 while raw_days_per_week.isdigit() == False or not(1 <= int(raw_days_per_week) <= 7):
     print("Error: It can only be a number between 1 to 7\n")
     raw_days_per_week = input("How many days per week you can train: ")
-#Typecasts days per week into an int for operations
+#Typecasts days per week into an int for operations in later functions
 days_per_week = int(raw_days_per_week)
 
 #Initialising modifier variable for elderly people
 modifier = 1
+#Conditional statements that will reduce the modifier value depending on the age group
 if 60 <= age <= 64:
     modifier *= (1 - (1/100)* (age - 60))
 elif 65 <= age <= 74:
@@ -89,10 +92,11 @@ elif age >= 80:
     #
     modifier *= (after_reduction)
 
-#Below are 10 functions for each workout, each with parameter as modifier. The modifier is initialised above and will be multiplied
-#to each rep/min
-#1
-def fat_loss(modifier):
+#Below are 10 functions for each workout. The modifier is initialised above and will be multiplied to each rep/min when appropriate
+def fat_loss():
+    """Function that calculates reps for fat loss workout
+    Returns: fat_loss_workout as fstring
+    """
     fat_loss_workout = f"""Gym workout for fat loss
 
 Plate thrusters ({math.ceil(15*modifier)} reps x 3 sets)
@@ -105,8 +109,11 @@ Treadmill ({math.ceil(10*modifier)} mins x 3 sets)
 Supermans ({math.ceil(10*modifier)} reps x 3 sets)
 Crunches ({math.ceil(10*modifier)} reps x 3 sets)"""
     return fat_loss_workout
-#2------------------------------------------------------
-def stretch_n_relax(modifier):
+
+def stretch_n_relax():
+    """Function that calculates reps for stretch and relax
+    Returns: stretch_workout as fstring
+    """
     stretch_workout = f"""Gym workout for stretch and relax
 
 Quad stretchs ({math.ceil(2*modifier)} mins x 3 sets)
@@ -120,8 +127,11 @@ Calf stretchs ({math.ceil(2*modifier)} mins x 3 sets)
 Lower back stretchs ({math.ceil(2*modifier)} mins x 3 sets)"""
 
     return stretch_workout
-#3------------------------------------------------------
-def high_intensity(modifier):
+
+def high_intensity():
+    """Function that calculates reps for high intensity workout
+    Returns: HIT_workout as fstring
+    """
     HIT_workout = f"""Gym workout for high-intensity exercises
 
 Jumping jacks ({math.ceil(20*modifier)} reps x 4 sets)
@@ -134,8 +144,11 @@ Treadmill ({math.ceil(15*modifier)} mins x 2 sets)
 Side planks ({math.ceil(15*modifier)} reps x 3 sets)
 Burpees ({math.ceil(15*modifier)} reps x 3 sets)"""
     return HIT_workout
-#4------------------------------------------------------
-def legs(modifier):
+
+def legs():
+    """Function that calculates reps for leg workout
+    Returns: leg_workout as fstring
+    """
     leg_workout = f"""Gym workout for strong legs
 
 Back squats ({math.ceil(10*modifier)} reps x 5 sets)
@@ -147,8 +160,11 @@ Dumbbell lunges ({math.ceil(10*modifier)} reps x 3 sets)
 Leg curls ({math.ceil(15*modifier)} reps x 3 sets)
 Standing calf raises ({math.ceil(20*modifier)} reps x 2 sets)"""
     return leg_workout
-#5------------------------------------------------------
-def abdom(modifier):
+
+def abdom():
+    """Function that caclulates reps for ab exercises
+    Returns: ab_workout as fstring
+    """
     ab_workout = f"""Gym workout for strong ABS
 
 Cross crunchs ({math.ceil(12*modifier)} reps x 3 sets)
@@ -161,8 +177,11 @@ Front planks ({math.ceil(15*modifier)} mins x 3 sets)
 Dragon flags ({math.ceil(12*modifier)} reps x 4 sets)
 Reverse crunches ({math.ceil(10*modifier)} reps x 3 sets)"""
     return ab_workout
-#6------------------------------------------------------
-def shoulder_n_arms(modifier):
+
+def shoulder_n_arms():
+    """Function that calculates reps for shoulder and arms workout
+    Returns: shoulder_n_arm_workout as fstring
+    """
     shoulder_n_arm_workout = f"""Gym workout for strong shoulder and arms
 
 Bench presses ({math.ceil(10*modifier)} reps x 5 sets)
@@ -175,30 +194,40 @@ Treadmill ({math.ceil(15*modifier)} mins x 2 sets)
 Bent over rows ({math.ceil(10*modifier)} reps x 5 sets)
 Chin ups ({math.ceil(10*modifier)} reps x 3 sets)"""
     return shoulder_n_arm_workout
-#7------------------------------------------------------
-def male_under_18(modifier):
-    male_U18_workout = f"""Gym workout for a male younger than 18 years old
+#For males and females under 18, there isn't a need to use modifier to calculate since they will never reach the conditional to
+#trigger the change in the modifier value
+def male_under_18() -> str:
+    """Function that returns reps for U18 Males
+    Returns: male_U18_workout as string
+    """
+    male_U18_workout = """Gym workout for a male younger than 18 years old
 
-High knees ({math.ceil(20*modifier)} reps x 3 sets)
-Squats ({math.ceil(10*modifier)} reps x 3 sets)
-Calf raises ({math.ceil(10*modifier)} reps x 3 sets)
-Scissor jumps ({math.ceil(12*modifier)} reps x 3 sets)
-Burpees ({math.ceil(10*modifier)} reps x 3 sets)
-Treadmill ({math.ceil(10*modifier)} mins x 2 sets)"""
+High knees (20 reps x 3 sets)
+Squats (10 reps x 3 sets)
+Calf raises (10 reps x 3 sets)
+Scissor jumps (12 reps x 3 sets)
+Burpees (10 reps x 3 sets)
+Treadmill (10 mins x 2 sets)"""
     return male_U18_workout
-#8------------------------------------------------------
-def female_under_18(modifier):
-    female_U18_workout = f"""Gym workout for a female younger than 18 years old
 
-Squats ({math.ceil(10*modifier)} reps x 3 sets)
-Crunches ({math.ceil(10*modifier)} reps x 2 sets)
-Jumping jacks ({math.ceil(10*modifier)} reps x 3 sets)
-Push ups ({math.ceil(10*modifier)} reps x 2 sets)
-Burpees ({math.ceil(10*modifier)} reps x 3 sets)
-Treadmill ({math.ceil(10*modifier)} mins x 2 sets)"""
+def female_under_18() -> str:
+    """Function that returns reps for U18 Females
+    Returns: female_U18_workout as string
+    """
+    female_U18_workout = """Gym workout for a female younger than 18 years old
+
+Squats (10 reps x 3 sets)
+Crunches (10 reps x 2 sets)
+Jumping jacks (10 reps x 3 sets)
+Push ups (10 reps x 2 sets)
+Burpees (10 reps x 3 sets)
+Treadmill (10 mins x 2 sets)"""
     return female_U18_workout
-#9------------------------------------------------------
-def male_18plus(modifier):
+
+def male_18plus():
+    """Function that calculates the reps for 18+ Males
+    Returns: male_18plus_workout as fstring
+    """
     male_18plus_workout = f"""Gym workout for a male at least 18 years old
 
 Standing biceps curls ({math.ceil(20*modifier)} reps x 3 sets)
@@ -210,8 +239,11 @@ Tricep kickbacks ({math.ceil(15*modifier)} reps x 3 sets)
 Hip thrusts ({math.ceil(12*modifier)} reps x 3 sets)
 Seated rows ({math.ceil(10*modifier)} reps x 4 sets)"""
     return male_18plus_workout
-#10------------------------------------------------------
-def female_18plus(modifier):
+
+def female_18plus():
+    """Function that calculates reps for 18+ Females
+    Returns: female_18plus_workout as fstring
+    """
     female_18plus_workout = f"""Gym workout for a female at least 18 years old
 
 Lateral raises ({math.ceil(15*modifier)} reps x 3 sets)
@@ -223,54 +255,65 @@ Dumbbell lunges ({math.ceil(10*modifier)} reps x 3 sets)
 Leg presses ({math.ceil(12*modifier)} reps x 3 sets)
 Dumbbell presses ({math.ceil(10*modifier)} reps x 4 sets)"""
     return female_18plus_workout
-#------------------------------------------------------
-#Creates function that calls the workouts depending on the training choice from the user
-def user_workout_choice(training_choice = training_choice, modifier = modifier):
+
+def user_workout_choice():
+    """Function that calls workouts depending on the training_choice from user input
+    Output: Prints the respective workouts
+    """
     if training_choice == "1":
-       print(fat_loss(modifier))
+       print(fat_loss())
     elif training_choice == "2":
-       print(stretch_n_relax(modifier))
+       print(stretch_n_relax())
     elif training_choice == "3":
-       print(HIT(modifier))
+       print(high_intensity())
     elif training_choice == "4":
-       print(legs(modifier))
+       print(legs())
     elif training_choice == "5":
-       print(abdom(modifier))
+       print(abdom())
     elif training_choice == "6":
-       print(shoulder_n_arms(modifier))
-#Creates function that calls the workouts based on the sex and age of the user
-def age_sex_workout(sex = sex, age = age, modifier = modifier):
+       print(shoulder_n_arms())
+
+def age_sex_workout():
+    """Function that calls the age & sex workouts depending on user input
+    Output: Prints the respective age & sex workouts
+    """
     if sex == "male":
         if age < 18:
-           print(male_under_18(modifier))
+           print(male_under_18())
         else:
-           print(male_18plus(modifier))
+           print(male_18plus())
     elif sex == "female":
         if age < 18:
-           print(female_under_18(modifier))
+           print(female_under_18())
         else:
-           print(female_18plus(modifier))
+           print(female_18plus())
 
-#WORK ON MAKING A FUNCTION/LOOP TO PRINT THE FINAL WORKOUT
-
-def final_workout(days = days_per_week):
+def final_workout():
+    """Function that prints out the finalised workout scheme for the user
+    Output: Alternating workouts from training choice and age & sex groups depending on number of training days
+    """
+    #Initialises day_counter = 0 for the while loop
     day_counter = 0
     print(f"\nHello {name}! Here is your training:")
-    while day_counter < days:
+    #While loop that prints out the training choice workout first, then if the training days are larger than 1, print the
+    #age & sex workout, then back to the training choice, and so on and so forth.
+    while day_counter < days_per_week:
         day_counter += 1
         print("-------------------------------------------------------------------------------------")
         print(f"Day {day_counter}")
-        user_workout_choice(training_choice)
-        if day_counter == days:
+        user_workout_choice()
+        #if-else statement here to check if the day_counter is equal to the training days. Breaks the loop if condition is met,
+        #otherwise continue and print the age & sex workout and increment day_counter by 1
+        if day_counter == days_per_week:
             break
         else:
             print("-------------------------------------------------------------------------------------")
             day_counter += 1
             print(f"Day {day_counter}")
-            age_sex_workout(sex, age)
-
+            age_sex_workout()
 
     print("-------------------------------------------------------------------------------------")
     print(f"\nBye {name}.")
 
+#Calls final workout
 final_workout()
