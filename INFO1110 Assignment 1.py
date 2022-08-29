@@ -6,8 +6,25 @@ SID: 520057793
 Unikey: hngu2146
 '''
 name = input("Please enter your name: ")
-#Continually prompts user when name is not valid or when user does not enter anything
-while name.isalpha() == False and not(' ' in name) or name.isspace() == True:
+
+def digit_in_name(name = name):
+    """Function that checks if there are digits in name input
+
+    Parameter:
+    Takes in name input as argument. Defaults to name.
+
+    Returns:
+    True or False
+    """
+    i = 0
+    while i < len(name):
+        has_digit = name[i].isdigit()
+        i+=1
+        if has_digit == True:
+            return has_digit      
+#Continually prompts user when name is not valid - only digits, only spaces, or has digits in name -
+#or when user does not enter anything
+while name.isalpha() == False and not(' ' in name) or name.isspace() == True or (digit_in_name(name) == True):
     print("Error: Only accept alphabetical characters and spaces for name\n")
     name = input("Please enter your name: ")
     
@@ -51,7 +68,7 @@ Choose a number between 1 to 6: """)
 raw_days_per_week = input("\nHow many days per week you can train: ")
 #Continually prompts user when input is empty or when input is not a number from 1 to 7
 while raw_days_per_week.isdigit() == False or not(1 <= int(raw_days_per_week) <= 7):
-    print("Error: It can only be a number between 1 to 7")
+    print("Error: It can only be a number between 1 to 7\n")
     raw_days_per_week = input("How many days per week you can train: ")
 #Typecasts days per week into an int for operations
 days_per_week = int(raw_days_per_week)
@@ -104,7 +121,7 @@ Lower back stretchs ({math.ceil(2*modifier)} mins x 3 sets)"""
 
     return stretch_workout
 #3------------------------------------------------------
-def HIT(modifier):
+def high_intensity(modifier):
     HIT_workout = f"""Gym workout for high-intensity exercises
 
 Jumping jacks ({math.ceil(20*modifier)} reps x 4 sets)
@@ -237,27 +254,23 @@ def age_sex_workout(sex = sex, age = age, modifier = modifier):
 #WORK ON MAKING A FUNCTION/LOOP TO PRINT THE FINAL WORKOUT
 
 def final_workout(days = days_per_week):
-    day_counter = 1
-    if days == 1:
-        print(f"\nHello {name}! Here is your training:")
+    day_counter = 0
+    print(f"\nHello {name}! Here is your training:")
+    while day_counter < days:
+        day_counter += 1
         print("-------------------------------------------------------------------------------------")
         print(f"Day {day_counter}")
         user_workout_choice(training_choice)
-        print("-------------------------------------------------------------------------------------")
-        print(f"\nBye {name}.")
-    elif days > 1:
-        print(f"\nHello {name}! Here is your training:")
-        while day_counter < days:
-            print("-------------------------------------------------------------------------------------")
-            print(f"Day {day_counter}")
-            user_workout_choice(training_choice)
+        if day_counter == days:
+            break
+        else:
             print("-------------------------------------------------------------------------------------")
             day_counter += 1
             print(f"Day {day_counter}")
             age_sex_workout(sex, age)
-            day_counter += 1
-            
-        print("-------------------------------------------------------------------------------------")
-        print(f"\nBye {name}.")
+
+
+    print("-------------------------------------------------------------------------------------")
+    print(f"\nBye {name}.")
 
 final_workout()
