@@ -23,29 +23,29 @@ def digit_in_name(name = name):
         if has_digit == True:
             return has_digit      
 #Continually prompts user when name is not valid - only digits, only spaces, or has digits in name -
-#or when user does not enter anything
+#or when user does not enter anything.
 while name.isalpha() == False and not(' ' in name) or name.isspace() == True or (digit_in_name(name) == True):
     print("Error: Only accept alphabetical characters and spaces for name\n")
     name = input("Please enter your name: ")
     
-#Takes age input from user as a string
+#Takes age input from user as a string.
 raw_age = input("\nPlease enter your age: ")
-#Continually prompts user when input is empty, when input is not a number or when age is out of the valid range
+#Continually prompts user when input is empty, when input is not a number or when age is out of the valid range.
 while raw_age == "" or raw_age.isdigit() == False or not(0<= int(raw_age) <= 110):
     print("Error: The age is a number between 0 to 110\n")
     raw_age = input("Please enter your age: ")
-#Typecasts age into int. This is to help in conditional statements for rep/min modifiers for elderly people
+#Typecasts age into int. This is to help in conditional statements for rep/min modifiers for elderly people.
 age = int(raw_age)
 
 sex = input("\nPlease enter your biological sex (female/male): ")
-#Continually prompts user when input is empty or input is not exactly "male" or "female"
+#Continually prompts user when input is empty or input is not exactly "male" or "female".
 while sex != "male" and sex != "female":
     print("Error: Please enter valid input\n")
     sex = input("Please enter your biological sex (female/male): ")
 
-#No need to typecast to int, can still fulfill conditionals without being an integer
+#No need to typecast to int, can still fulfill conditionals without being an integer.
 #Used docstrings over escape characters for multi-line strings as it's easier to look at
-#and spot errors in spelling whitespace
+#and spot errors in spelling whitespace.
 training_choice = input("""\nWhat do you want to get out of your training? 
     1. Your goal is losing weight
     2. Your goal is to staying calm and relax
@@ -54,7 +54,7 @@ training_choice = input("""\nWhat do you want to get out of your training?
     5. Your goal is having stronger ABS
     6. Your goal is having stronger shoulders and arms
 Choose a number between 1 to 6: """)
-#Continually prompts user when input is empty or when input is not a number from 1 to 6
+#Continually prompts user when input is empty or when input is not a number from 1 to 6.
 while training_choice.isdigit() == False or not (1 <= int(training_choice) <= 6):
     print("Error - It can only be a number between 1 to 6")
     training_choice = input("""\nWhat do you want to get out of your training? 
@@ -68,16 +68,16 @@ Choose a number between 1 to 6: """)
 
 #Takes days per week input as a string
 raw_days_per_week = input("\nHow many days per week you can train: ")
-#Continually prompts user when input is empty or when input is not a number from 1 to 7
+#Continually prompts user when input is empty or when input is not a number from 1 to 7.
 while raw_days_per_week.isdigit() == False or not(1 <= int(raw_days_per_week) <= 7):
     print("Error: It can only be a number between 1 to 7\n")
     raw_days_per_week = input("How many days per week you can train: ")
-#Typecasts days per week into an int for operations in later functions
+#Typecasts days per week into an int for operations in later functions.
 days_per_week = int(raw_days_per_week)
 
-#Initialising modifier variable for elderly people
+#Initialising modifier variable for elderly people.
 modifier = 1
-#Conditional statements that will reduce the modifier value depending on the age group
+#Conditional statements that will reduce the modifier value depending on the age group.
 if 60 <= age <= 64:
     modifier *= (1 - (1/100)* (age - 60))
 elif 65 <= age <= 74:
@@ -92,7 +92,7 @@ elif age >= 80:
     #
     modifier *= (after_reduction)
 
-#Below are 10 functions for each workout. The modifier is initialised above and will be multiplied to each rep/min when appropriate
+#Below are 10 functions for each workout. The modifier is initialised above and will be multiplied to each rep/min when appropriate.
 def fat_loss():
     """Function that calculates reps for fat loss workout
     Returns: fat_loss_workout as fstring
@@ -195,7 +195,7 @@ Bent over rows ({math.ceil(10*modifier)} reps x 5 sets)
 Chin ups ({math.ceil(10*modifier)} reps x 3 sets)"""
     return shoulder_n_arm_workout
 #For males and females under 18, there isn't a need to use modifier to calculate since they will never reach the conditional to
-#trigger the change in the modifier value
+#trigger the change in the modifier value.
 def male_under_18() -> str:
     """Function that returns reps for U18 Males
     Returns: male_U18_workout as string
@@ -255,7 +255,7 @@ Dumbbell lunges ({math.ceil(10*modifier)} reps x 3 sets)
 Leg presses ({math.ceil(12*modifier)} reps x 3 sets)
 Dumbbell presses ({math.ceil(10*modifier)} reps x 4 sets)"""
     return female_18plus_workout
-
+#The 10 workout functions end here, below are the other functions that help to print the final workout plan.
 def user_workout_choice():
     """Function that calls workouts depending on the training_choice from user input
     Output: Prints the respective workouts
