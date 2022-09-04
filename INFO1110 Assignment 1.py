@@ -35,7 +35,8 @@ while raw_age == "" or raw_age.isdigit() == False or not(0<= int(raw_age) <= 110
     print("Error: The age is a number between 0 to 110\n")
     raw_age = input("Please enter your age: ")
 #Typecasts age into int. This is to help in conditional statements for rep/min modifiers for elderly people.
-age = int(raw_age)
+#lstrip() function used to remove leading zero's.
+age = int(raw_age.lstrip('0'))
 
 sex = input("\nPlease enter your biological sex (female/male): ")
 #Continually prompts user when input is empty or input is not exactly "male" or "female".
@@ -46,7 +47,7 @@ while sex != "male" and sex != "female":
 #No need to typecast to int, can still fulfill conditionals without being an integer.
 #Used docstrings over escape characters for multi-line strings as it's easier to look at
 #and spot errors in spelling whitespace.
-training_choice = input("""\nWhat do you want to get out of your training? 
+training_input = input("""\nWhat do you want to get out of your training? 
     1. Your goal is losing weight
     2. Your goal is to staying calm and relax
     3. Your goal is increasing your heart rate
@@ -55,9 +56,9 @@ training_choice = input("""\nWhat do you want to get out of your training?
     6. Your goal is having stronger shoulders and arms
 Choose a number between 1 to 6: """)
 #Continually prompts user when input is empty or when input is not a number from 1 to 6.
-while training_choice.isdigit() == False or not (1 <= int(training_choice) <= 6):
+while training_input.isdigit() == False or not (1 <= int(training_input) <= 6):
     print("Error - It can only be a number between 1 to 6")
-    training_choice = input("""\nWhat do you want to get out of your training? 
+    training_input = input("""\nWhat do you want to get out of your training? 
     1. Your goal is losing weight
     2. Your goal is to staying calm and relax
     3. Your goal is increasing your heart rate
@@ -65,6 +66,9 @@ while training_choice.isdigit() == False or not (1 <= int(training_choice) <= 6)
     5. Your goal is having stronger ABS
     6. Your goal is having stronger shoulders and arms
 Choose a number between 1 to 6: """)
+#lstrip() function used again to remove leading zero's
+training_choice = training_input.lstrip('0')
+
 
 #Takes days per week input as a string
 raw_days_per_week = input("\nHow many days per week you can train: ")
